@@ -44,73 +44,73 @@ if __name__ == "__main__":
         )  # Faucet amount to extract
 
         # Synthr Faucet extract tokens
-        abi = read_abi(f"./abis/{faucet_address}.json")
-        build_and_send_transaction(
-            web3_client=web3,
-            contract_address=Web3.to_checksum_address(faucet_address),
-            function_name="faucetToken",
-            abi=abi,
-            account_address=account_address,
-            private_key=private_key,
-            function_args=(synthr_faucet_token_amount,),
-        )
-        time.sleep(GENEREAL_SLEEP_TIMER)
+        # abi = read_abi(f"./abis/{faucet_address}.json")
+        # build_and_send_transaction(
+        #     web3_client=web3,
+        #     contract_address=Web3.to_checksum_address(faucet_address),
+        #     function_name="faucetToken",
+        #     abi=abi,
+        #     account_address=account_address,
+        #     private_key=private_key,
+        #     function_args=(synthr_faucet_token_amount,),
+        # )
+        # time.sleep(GENEREAL_SLEEP_TIMER)
 
         # Approve Synthr faucet tokens
-        build_and_send_transaction(
-            web3_client=web3,
-            contract_address=faucet_address,
-            function_name="approve",
-            abi=abi,
-            account_address=account_address,
-            private_key=private_key,
-            function_args=(
-                main_contract_address,
-                115792089237316195423570985008687907853269984665640564039457584007913129639935,
-            ),
-        )
-        time.sleep(GENEREAL_SLEEP_TIMER)
+        # build_and_send_transaction(
+        #     web3_client=web3,
+        #     contract_address=faucet_address,
+        #     function_name="approve",
+        #     abi=abi,
+        #     account_address=account_address,
+        #     private_key=private_key,
+        #     function_args=(
+        #         main_contract_address,
+        #         115792089237316195423570985008687907853269984665640564039457584007913129639935,
+        #     ),
+        # )
+        # time.sleep(GENEREAL_SLEEP_TIMER)
 
         # Deposit Synthr faucet tokens
-        build_and_send_transaction(
-            web3_client=web3,
-            contract_address=main_contract_address,
-            function_name="issueSynths",
-            abi=main_abi,
-            account_address=account_address,
-            private_key=private_key,
-            function_args=(
-                "0x4545544800000000000000000000000000000000000000000000000000000000",
-                synthr_faucet_token_amount,
-                0,
-                "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
-                0,
-                False,
-            ),
-        )
-        time.sleep(GENEREAL_SLEEP_TIMER)
+        # build_and_send_transaction(
+        #     web3_client=web3,
+        #     contract_address=main_contract_address,
+        #     function_name="issueSynths",
+        #     abi=main_abi,
+        #     account_address=account_address,
+        #     private_key=private_key,
+        #     function_args=(
+        #         "0x4545544800000000000000000000000000000000000000000000000000000000",
+        #         synthr_faucet_token_amount,
+        #         0,
+        #         "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
+        #         0,
+        #         False,
+        #     ),
+        # )
+        # time.sleep(GENEREAL_SLEEP_TIMER)
 
         # Issue sUSD
-        issue_amount = int(1e18 * 10_000) + random.randint(
-            0, int(1e8)
-        )  # 10,000 sUSD + random amount
-        build_and_send_transaction(
-            web3_client=web3,
-            contract_address=main_contract_address,
-            function_name="issueSynths",
-            abi=main_abi,
-            account_address=account_address,
-            private_key=private_key,
-            function_args=(
-                "0x0000000000000000000000000000000000000000000000000000000000000000",
-                0,
-                issue_amount,
-                "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
-                0,
-                False,
-            ),
-        )
-        time.sleep(GENEREAL_SLEEP_TIMER)
+        # issue_amount = int(1e18 * 10_000) + random.randint(
+        #     0, int(1e8)
+        # )  # 10,000 sUSD + random amount
+        # build_and_send_transaction(
+        #     web3_client=web3,
+        #     contract_address=main_contract_address,
+        #     function_name="issueSynths",
+        #     abi=main_abi,
+        #     account_address=account_address,
+        #     private_key=private_key,
+        #     function_args=(
+        #         "0x0000000000000000000000000000000000000000000000000000000000000000",
+        #         0,
+        #         issue_amount,
+        #         "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
+        #         0,
+        #         False,
+        #     ),
+        # )
+        # time.sleep(GENEREAL_SLEEP_TIMER)
 
         # Burn sUSD
         build_and_send_transaction(
@@ -121,7 +121,7 @@ if __name__ == "__main__":
             account_address=account_address,
             private_key=private_key,
             function_args=(
-                int(issue_amount // 1e8),
+                100000000000000,
                 "0x7355534400000000000000000000000000000000000000000000000000000000",
                 "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
             ),
@@ -138,9 +138,7 @@ if __name__ == "__main__":
             private_key=private_key,
             function_args=(
                 "0x4554480000000000000000000000000000000000000000000000000000000000",
-                int(
-                    issue_amount // 1e8
-                ),  # Feel free to change it to any amount you want,
+                1000000000000000,  # Feel free to change it to any amount you want,
                 # if you want to test liquidation functionality of the protocol.
                 "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
                 0,
