@@ -33,7 +33,7 @@ if __name__ == "__main__":
     bridge_abi = read_abi(f"./abis/{bridge_contract}.json")
 
     running_total_diff = 0
-    amount_to_swap = 10
+    amount_to_swap = 1
     for c in range(ACTION_MULTIPLIER):
         initial_balance = web3.from_wei(web3.eth.get_balance(account_address), "ether")
         logging.info(f"Wallet balance: {initial_balance} ETH")
@@ -138,7 +138,7 @@ if __name__ == "__main__":
             private_key=private_key,
             function_args=(
                 "0x4554480000000000000000000000000000000000000000000000000000000000",
-                1000000000000000,  # Feel free to change it to any amount you want,
+                100000000000000,  # Feel free to change it to any amount you want,
                 # if you want to test liquidation functionality of the protocol.
                 "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
                 0,
@@ -158,9 +158,9 @@ if __name__ == "__main__":
             private_key=private_key,
             function_args=(
                 "0x7355534400000000000000000000000000000000000000000000000000000000",
-                int(100 * 1e18),  # 100 sUSD
+                int(1 * 1e18),  # 1 sUSD
                 "0x7355534400000000000000000000000000000000000000000000000000000000",
-                98802000000000000000,
+                5346000000000000,
                 "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
                 10106,
                 False,
@@ -188,9 +188,8 @@ if __name__ == "__main__":
             function_args=(
                 "0x7355534400000000000000000000000000000000000000000000000000000000",
                 int(amount_to_swap * 1e18),  # 10 sUSD
-                "0x7345544800000000000000000000000000000000000000000000000000000000",
-                int(usd_eth_price * amount_to_swap * 1e18)
-                - 68014044637676,  # min amount received, tinker as price changes, this is an example.
+                "0x734141504c000000000000000000000000000000000000000000000000000000",
+                5346000000000000,  # min amount received, tinker as price changes, this is an example.
                 "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
                 0,
                 False,
