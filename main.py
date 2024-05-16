@@ -112,21 +112,21 @@ if __name__ == "__main__":
         # )
         # time.sleep(GENEREAL_SLEEP_TIMER)
 
-        # Burn sUSD
-        build_and_send_transaction(
-            web3_client=web3,
-            contract_address=main_contract_address,
-            function_name="burnSynths",
-            abi=main_abi,
-            account_address=account_address,
-            private_key=private_key,
-            function_args=(
-                100000000000000,
-                "0x7355534400000000000000000000000000000000000000000000000000000000",
-                "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
-            ),
-        )
-        time.sleep(GENEREAL_SLEEP_TIMER)
+        # # Burn sUSD
+        # build_and_send_transaction(
+        #     web3_client=web3,
+        #     contract_address=main_contract_address,
+        #     function_name="burnSynths",
+        #     abi=main_abi,
+        #     account_address=account_address,
+        #     private_key=private_key,
+        #     function_args=(
+        #         100000000000000,
+        #         "0x7355534400000000000000000000000000000000000000000000000000000000",
+        #         "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
+        #     ),
+        # )
+        # time.sleep(GENEREAL_SLEEP_TIMER)
 
         # Withdraw Collateral
         build_and_send_transaction(
@@ -137,7 +137,7 @@ if __name__ == "__main__":
             account_address=account_address,
             private_key=private_key,
             function_args=(
-                "0x4554480000000000000000000000000000000000000000000000000000000000",
+                "0x5553445400000000000000000000000000000000000000000000000000000000",
                 1000000000000000,  # Feel free to change it to any amount you want,
                 # if you want to test liquidation functionality of the protocol.
                 "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
@@ -147,79 +147,79 @@ if __name__ == "__main__":
         )
         time.sleep(GENEREAL_SLEEP_TIMER)
 
-        # Cross chain swap, you need lz_value (to add more fees), to change chainID,
-        # please test via UI to get the rest of arguments correctly.
-        build_and_send_transaction(
-            web3_client=web3,
-            contract_address=main_contract_address,
-            function_name="exchangeAtomically",
-            abi=main_abi,
-            account_address=account_address,
-            private_key=private_key,
-            function_args=(
-                "0x7355534400000000000000000000000000000000000000000000000000000000",
-                int(100 * 1e18),  # 100 sUSD
-                "0x7355534400000000000000000000000000000000000000000000000000000000",
-                98802000000000000000,
-                "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
-                10106,
-                False,
-            ),
-            lz_value=LZ_VALUE,
-        )
-        time.sleep(GENEREAL_SLEEP_TIMER)
+        # # Cross chain swap, you need lz_value (to add more fees), to change chainID,
+        # # please test via UI to get the rest of arguments correctly.
+        # build_and_send_transaction(
+        #     web3_client=web3,
+        #     contract_address=main_contract_address,
+        #     function_name="exchangeAtomically",
+        #     abi=main_abi,
+        #     account_address=account_address,
+        #     private_key=private_key,
+        #     function_args=(
+        #         "0x7355534400000000000000000000000000000000000000000000000000000000",
+        #         int(100 * 1e18),  # 100 sUSD
+        #         "0x7355534400000000000000000000000000000000000000000000000000000000",
+        #         98802000000000000000,
+        #         "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
+        #         10106,
+        #         False,
+        #     ),
+        #     lz_value=LZ_VALUE,
+        # )
+        # time.sleep(GENEREAL_SLEEP_TIMER)
 
-        # Same chain swap
-        eth_usd_price_raw = read_function_from_contract(
-            web3_client=web3,
-            contract_address=eth_usd_chainlink_feed,
-            function_name="latestAnswer",
-            abi=chainlink_abi,
-        ).call()
-        eth_usd_price = int(eth_usd_price_raw) / 1e8 if eth_usd_price_raw != 0 else 0
-        usd_eth_price = 1 / eth_usd_price
-        build_and_send_transaction(
-            web3_client=web3,
-            contract_address=main_contract_address,
-            function_name="exchangeAtomically",
-            abi=main_abi,
-            account_address=account_address,
-            private_key=private_key,
-            function_args=(
-                "0x7355534400000000000000000000000000000000000000000000000000000000",
-                int(amount_to_swap * 1e18),  # 10 sUSD
-                "0x7345544800000000000000000000000000000000000000000000000000000000",
-                int(usd_eth_price * amount_to_swap * 1e18)
-                - 68014044637676,  # min amount received, tinker as price changes, this is an example.
-                "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
-                0,
-                False,
-            ),
-        )
+        # # Same chain swap
+        # eth_usd_price_raw = read_function_from_contract(
+        #     web3_client=web3,
+        #     contract_address=eth_usd_chainlink_feed,
+        #     function_name="latestAnswer",
+        #     abi=chainlink_abi,
+        # ).call()
+        # eth_usd_price = int(eth_usd_price_raw) / 1e8 if eth_usd_price_raw != 0 else 0
+        # usd_eth_price = 1 / eth_usd_price
+        # build_and_send_transaction(
+        #     web3_client=web3,
+        #     contract_address=main_contract_address,
+        #     function_name="exchangeAtomically",
+        #     abi=main_abi,
+        #     account_address=account_address,
+        #     private_key=private_key,
+        #     function_args=(
+        #         "0x7355534400000000000000000000000000000000000000000000000000000000",
+        #         int(amount_to_swap * 1e18),  # 10 sUSD
+        #         "0x7345544800000000000000000000000000000000000000000000000000000000",
+        #         int(usd_eth_price * amount_to_swap * 1e18)
+        #         - 68014044637676,  # min amount received, tinker as price changes, this is an example.
+        #         "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
+        #         0,
+        #         False,
+        #     ),
+        # )
 
-        # Bridge only every % 10 == 0 iteration
-        if c % 10 == 0:
-            # Bridge some sUSD to another chain, similar to cross chain swap,
-            # you need to test via UI to get the right arguments.
-            bridge_amount = int(10 * 1e18) + random.randint(0, 10000000000)
-            build_and_send_transaction(
-                web3_client=web3,
-                contract_address=bridge_contract,
-                function_name="bridgeSynth",
-                abi=bridge_abi,
-                account_address=account_address,
-                private_key=private_key,
-                function_args=(
-                    account_address,
-                    "0x7355534400000000000000000000000000000000000000000000000000000000",
-                    bridge_amount,
-                    "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
-                    10106,
-                    False,
-                ),
-                lz_value=LZ_VALUE,
-            )
-            time.sleep(GENEREAL_SLEEP_TIMER)
+        # # Bridge only every % 10 == 0 iteration
+        # if c % 10 == 0:
+        #     # Bridge some sUSD to another chain, similar to cross chain swap,
+        #     # you need to test via UI to get the right arguments.
+        #     bridge_amount = int(10 * 1e18) + random.randint(0, 10000000000)
+        #     build_and_send_transaction(
+        #         web3_client=web3,
+        #         contract_address=bridge_contract,
+        #         function_name="bridgeSynth",
+        #         abi=bridge_abi,
+        #         account_address=account_address,
+        #         private_key=private_key,
+        #         function_args=(
+        #             account_address,
+        #             "0x7355534400000000000000000000000000000000000000000000000000000000",
+        #             bridge_amount,
+        #             "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
+        #             10106,
+        #             False,
+        #         ),
+        #         lz_value=LZ_VALUE,
+        #     )
+        #     time.sleep(GENEREAL_SLEEP_TIMER)
 
         balance = web3.from_wei(web3.eth.get_balance(account_address), "ether")
         diff = initial_balance - balance
