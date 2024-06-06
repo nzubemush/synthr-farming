@@ -128,24 +128,24 @@ if __name__ == "__main__":
         # )
         # time.sleep(GENEREAL_SLEEP_TIMER)
 
-        # Withdraw Collateral
-        build_and_send_transaction(
-            web3_client=web3,
-            contract_address=main_contract_address,
-            function_name="withdrawCollateral",
-            abi=main_abi,
-            account_address=account_address,
-            private_key=private_key,
-            function_args=(
-                "0x5553445400000000000000000000000000000000000000000000000000000000",
-                1000000000000000,  # Feel free to change it to any amount you want,
-                # if you want to test liquidation functionality of the protocol.
-                "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
-                0,
-                False,
-            ),
-        )
-        time.sleep(GENEREAL_SLEEP_TIMER)
+        # # Withdraw Collateral
+        # build_and_send_transaction(
+        #     web3_client=web3,
+        #     contract_address=main_contract_address,
+        #     function_name="withdrawCollateral",
+        #     abi=main_abi,
+        #     account_address=account_address,
+        #     private_key=private_key,
+        #     function_args=(
+        #         "0x5553445400000000000000000000000000000000000000000000000000000000",
+        #         1000000000000000,  # Feel free to change it to any amount you want,
+        #         # if you want to test liquidation functionality of the protocol.
+        #         "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
+        #         0,
+        #         False,
+        #     ),
+        # )
+        # time.sleep(GENEREAL_SLEEP_TIMER)
 
         # # Cross chain swap, you need lz_value (to add more fees), to change chainID,
         # # please test via UI to get the rest of arguments correctly.
@@ -158,9 +158,9 @@ if __name__ == "__main__":
         #     private_key=private_key,
         #     function_args=(
         #         "0x7355534400000000000000000000000000000000000000000000000000000000",
-        #         int(100 * 1e18),  # 100 sUSD
-        #         "0x7355534400000000000000000000000000000000000000000000000000000000",
-        #         98802000000000000000,
+        #         1000000000000000000,  # 100 sUSD
+        #         "0x734141504c000000000000000000000000000000000000000000000000000000",
+        #         5049000000000000,
         #         "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
         #         10106,
         #         False,
@@ -169,33 +169,33 @@ if __name__ == "__main__":
         # )
         # time.sleep(GENEREAL_SLEEP_TIMER)
 
-        # # Same chain swap
-        # eth_usd_price_raw = read_function_from_contract(
-        #     web3_client=web3,
-        #     contract_address=eth_usd_chainlink_feed,
-        #     function_name="latestAnswer",
-        #     abi=chainlink_abi,
-        # ).call()
-        # eth_usd_price = int(eth_usd_price_raw) / 1e8 if eth_usd_price_raw != 0 else 0
-        # usd_eth_price = 1 / eth_usd_price
-        # build_and_send_transaction(
-        #     web3_client=web3,
-        #     contract_address=main_contract_address,
-        #     function_name="exchangeAtomically",
-        #     abi=main_abi,
-        #     account_address=account_address,
-        #     private_key=private_key,
-        #     function_args=(
-        #         "0x7355534400000000000000000000000000000000000000000000000000000000",
-        #         int(amount_to_swap * 1e18),  # 10 sUSD
-        #         "0x7345544800000000000000000000000000000000000000000000000000000000",
-        #         int(usd_eth_price * amount_to_swap * 1e18)
-        #         - 68014044637676,  # min amount received, tinker as price changes, this is an example.
-        #         "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
-        #         0,
-        #         False,
-        #     ),
-        # )
+        # Same chain swap
+        eth_usd_price_raw = read_function_from_contract(
+            web3_client=web3,
+            contract_address=eth_usd_chainlink_feed,
+            function_name="latestAnswer",
+            abi=chainlink_abi,
+        ).call()
+        eth_usd_price = int(eth_usd_price_raw) / 1e8 if eth_usd_price_raw != 0 else 0
+        usd_eth_price = 1 / eth_usd_price
+        build_and_send_transaction(
+            web3_client=web3,
+            contract_address=main_contract_address,
+            function_name="exchangeAtomically",
+            abi=main_abi,
+            account_address=account_address,
+            private_key=private_key,
+            function_args=(
+                "0x7355534400000000000000000000000000000000000000000000000000000000",
+                int(amount_to_swap * 1e18),  # 10 sUSD
+                "0x7345544800000000000000000000000000000000000000000000000000000000",
+                int(usd_eth_price * amount_to_swap * 1e18)
+                - 68014044637676,  # min amount received, tinker as price changes, this is an example.
+                "0x4c617965725a65726f0000000000000000000000000000000000000000000000",
+                0,
+                False,
+            ),
+        )
 
         # # Bridge only every % 10 == 0 iteration
         # if c % 10 == 0:
